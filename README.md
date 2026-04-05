@@ -73,7 +73,7 @@ cd AgroAI-Crop-Yield-Predictor
 pip install -r requirements.txt
 
 # Запустить приложение
-streamlit run app.py
+python -m streamlit run crop_yield_app.py
 
 ## Авторы
 
