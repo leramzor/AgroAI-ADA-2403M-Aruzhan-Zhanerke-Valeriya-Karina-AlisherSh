@@ -111,13 +111,15 @@ INDIGO  = "#6366f1"
 GRID    = "#f0ede5"
 FONT    = dict(family="DM Sans, sans-serif", color="#4a4a40")
 
-# ── base_layout: margin passed explicitly, never duplicated ───────────────────
 def base_layout(t=36, b=20, l=10, r=10, **kw):
-    """All chart layout defaults. Use t/b/l/r to override margin sides."""
     return dict(
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        font=FONT,
+        paper_bgcolor="#ffffff",  
+        plot_bgcolor="#ffffff",    
+        font=dict(
+            family="DM Sans, sans-serif",
+            color="#1a2e1a",  
+            size=13
+        ),
         margin=dict(t=t, b=b, l=l, r=r),
         **kw
     )
