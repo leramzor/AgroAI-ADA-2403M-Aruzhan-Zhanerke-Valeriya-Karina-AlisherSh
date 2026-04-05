@@ -11,7 +11,7 @@
 **Основная задача**: Предоставить фермерам и агрономам точные прогнозы урожайности с доверительными интервалами и визуальной аналитикой.
 
 ### Главная страница
-[![[Главная страница](https://agroai-ada-2403m-aruzhan-zhanerke-valeriya-karina-alishersh-c5.streamlit.app/)](screenshots/main_dashboard.png)](https://agroai-ada-2403m-aruzhan-zhanerke-valeriya-karina-alishersh-c5.streamlit.app/)
+https://agroai-ada-2403m-aruzhan-zhanerke-valeriya-karina-alishersh-c5.streamlit.app
 *Форма ввода параметров слева, результаты предсказания справа,под ними виузаулизации*
 
 ### Результаты предсказания
