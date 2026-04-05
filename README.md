@@ -15,10 +15,10 @@
 *Форма ввода параметров слева, результаты предсказания справа,под ними виузаулизации*
 
 ### Результаты предсказания
-Predicted yield · 2025: 4,256 kg/ha
-vs. Wheat average (4,123 kg/ha): +133 kg/ha
-Model confidence: 87.4%
-Range: 4,189 – 4,323 kg/ha (±37 kg/ha)
+- Predicted yield · 2025: 4,256 kg/ha
+- Wheat average (4,123 kg/ha): +133 kg/ha
+- Model confidence: 87.4%
+- Range: 4,189 – 4,323 kg/ha (±37 kg/ha)
 
 
 ### Визуализации (8 графиков):
@@ -41,13 +41,13 @@ Range: 4,189 – 4,323 kg/ha (±37 kg/ha)
 | **Кэширование**| `@st.cache_resource`                          |
 | **Стилизация** | Custom CSS + Google Fonts (Playfair Display, DM Sans, DM Mono) |
 
-### Входные параметры
-Year (2024-2030)
-State (Punjab)
-Crop_Type (Wheat, Rice, Bajra)
-Rainfall (mm/yr, 0-1000)
-Soil_Type (Loamy, alluvial)
-Irrigation_Area (ha, 0-4000)
+## Входные параметры
+- Year (2024-2030)
+- State (Punjab)
+- Crop_Type (Wheat, Rice, Bajra)
+- Rainfall (mm/yr, 0-1000)
+- Soil_Type (Loamy, alluvial)
+- Irrigation_Area (ha, 0-4000)
 
 
 ### Исторические данные
@@ -55,11 +55,12 @@ Irrigation_Area (ha, 0-4000)
 - **Целевая переменная**: Crop_Yield (kg/ha)
 - **Предобработка**: LabelEncoder, StandardScaler
 
-### Метрики модели
-✓ Доверительный интервал (±1σ по деревьям)
-✓ Feature importance ranking
-✓ Сравнение с историческим средним
-✓ Confidence score
+## Метрики модели
+
+- Доверительный интервал (±1σ по деревьям)
+- Feature importance ranking
+- Сравнение с историческим средним
+- Confidence score
 
 
 ## Быстрый старт
@@ -74,11 +75,12 @@ pip install -r requirements.txt
 # Запустить приложение
 streamlit run app.py
 
-# Авторы
-**ADA-2403M | Astana IT University**
-**Бисимбаева Аружан**
-**Дуйсен Жанерке**
-**Казагашева Валерия**
-**Жумагулова Карина**
-**Шаймуран Алишер**
-**Проект для: НИЦ AgroTech 05.04.2026**
+## Авторы
+
+**ADA-2403M | Astana IT University| Проект для: НИЦ AgroTech 05.04.2026**
+
+- **Бисимбаева Аружан**
+- **Дуйсен Жанерке**
+- **Казагашева Валерия**
+- **Жумагулова Карина**
+- **Шаймуран Алишер**
