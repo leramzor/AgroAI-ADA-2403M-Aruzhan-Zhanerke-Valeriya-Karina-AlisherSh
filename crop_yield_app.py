@@ -14,8 +14,32 @@ st.set_page_config(
 st.markdown("""
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@400;500&family=DM+Mono:wght@500&display=swap');
-  html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
+  
+  :root {
+    --primary-color: #2e7d32;
+    --background-color: #f7f6f2;
+    --secondary-background-color: #ffffff;
+    --text-color: #1a2e1a;
+    --font: 'DM Sans', sans-serif;
+  }
+
+  html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; color: #1a2e1a; }
   .stApp { background: #f7f6f2; }
+  
+  div[data-testid="stWidgetLabel"] p {
+      color: #1a2e1a !important;
+      font-weight: 500 !important;
+      font-size: 14px !important;
+      opacity: 1 !important;
+  }
+
+  .stSelectbox div[data-baseweb="select"], 
+  .stNumberInput input, 
+  .stSlider div[data-baseweb="slider"] {
+      color: #1a2e1a !important;
+      background-color: #ffffff !important;
+  }
+  
   .app-header {
       display: flex; align-items: center; gap: 14px;
       padding: 28px 0 20px; border-bottom: 1px solid #e0ddd5; margin-bottom: 28px;
@@ -27,17 +51,20 @@ st.markdown("""
       color: #1a2e1a !important; margin: 0 !important; padding: 0 !important;
   }
   .app-header p { font-size: 13px; color: #7a7a70; margin: 2px 0 0; }
+  
   .model-badge {
       margin-left: auto; font-size: 11px; font-family: 'DM Mono', monospace;
       padding: 4px 12px; border-radius: 999px;
       background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9;
   }
-  .card { background: #fff; border: 1px solid #e8e5de; border-radius: 14px; padding: 22px 24px; }
+  
+  .card { background: #fff; border: 1px solid #e8e5de; border-radius: 14px; padding: 22px 24px; color: #1a2e1a; }
   .card-title {
       font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
       text-transform: uppercase; color: #9a9a8e; margin-bottom: 18px;
   }
-  .result-box { background: #fff; border: 1px solid #e8e5de; border-radius: 14px; padding: 24px; }
+  
+  .result-box { background: #fff; border: 1px solid #e8e5de; border-radius: 14px; padding: 24px; color: #1a2e1a; }
   .result-label {
       font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
       text-transform: uppercase; color: #9a9a8e; margin-bottom: 6px;
@@ -47,44 +74,22 @@ st.markdown("""
       font-size: 52px; font-weight: 600; color: #2e7d32; line-height: 1;
   }
   .result-unit { font-family: 'DM Mono', monospace; font-size: 16px; color: #7a7a70; margin-left: 8px; }
-  .result-delta { font-size: 13px; color: #7a7a70; margin-top: 10px; }
-  .metrics-row { display: flex; gap: 10px; margin-top: 20px; }
+  
   .metric-mini { flex: 1; background: #f7f6f2; border-radius: 10px; padding: 12px 14px; }
-  .metric-mini .ml { font-size: 11px; color: #9a9a8e; margin-bottom: 3px; }
   .metric-mini .mv { font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 500; color: #1a2e1a; }
-  .conf-wrap { margin-top: 20px; }
-  .conf-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
-  .conf-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #9a9a8e; }
-  .conf-pct { font-family: 'DM Mono', monospace; font-size: 20px; font-weight: 500; }
-  .conf-bar-bg { height: 8px; background: #f0ede5; border-radius: 999px; overflow: hidden; }
-  .conf-bar-fill { height: 100%; border-radius: 999px; }
-  .conf-range { font-size: 12px; color: #9a9a8e; margin-top: 6px; }
-  .empty-state {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      min-height: 220px; color: #c0bdb5; font-size: 13px; text-align: center; gap: 8px;
-  }
-  .empty-state .ei { font-size: 44px; }
+  
   .section-title {
       font-family: 'Playfair Display', serif;
       font-size: 17px; font-weight: 500; color: #1a2e1a;
       margin: 32px 0 16px; border-bottom: 1px solid #e8e5de; padding-bottom: 10px;
   }
-  .stSelectbox > div > div,
-  .stNumberInput > div > div > input {
-      border-radius: 8px !important; border-color: #e0ddd5 !important;
-      font-family: 'DM Sans', sans-serif !important;
-  }
+
   .stButton > button {
       background: #2e7d32 !important; color: #fff !important;
       border: none !important; border-radius: 10px !important;
-      padding: 12px 24px !important; font-family: 'DM Sans', sans-serif !important;
-      font-size: 14px !important; font-weight: 500 !important; width: 100% !important;
+      padding: 12px 24px !important; font-size: 14px !important; font-weight: 500 !important; width: 100% !important;
   }
-  .stButton > button:hover { opacity: 0.85 !important; }
-  .app-footer {
-      margin-top: 48px; padding-top: 16px; border-top: 1px solid #e0ddd5;
-      font-size: 12px; color: #b0ada5; text-align: center;
-  }
+  
   #MainMenu, footer, header { visibility: hidden; }
 </style>
 """, unsafe_allow_html=True)
