@@ -4,7 +4,6 @@ import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 import plotly.graph_objects as go
-import plotly.io as pio
 
 st.set_page_config(
     page_title="AgroAI · Crop Yield Predictor",
@@ -16,36 +15,29 @@ st.markdown("""
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@400;500&family=DM+Mono:wght@500&display=swap');
   
-  html, body, [class*="css"] {
-      background-color: #ffffff !important;
-      color: #1a2e1a !important;
-      color-scheme: light !important;
+  :root {
+    --primary-color: #2e7d32;
+    --background-color: #f7f6f2;
+    --secondary-background-color: #ffffff;
+    --text-color: #1a2e1a;
+    --font: 'DM Sans', sans-serif;
   }
 
-  .stApp {
-      background-color: #ffffff !important;
-  }
-
-  section[data-testid="stSidebar"] {
-      background-color: #ffffff !important;
-  }
-
-  h1, h2, h3, h4, h5, h6, p, span, div {
-      color: #1a2e1a !important;
-  }
-
-  div[data-testid="stWidgetLabel"],
-  div[data-testid="stWidgetLabel"] * {
-      color: #1a2e1a !important;
-      opacity: 1 !important;
-      font-weight: 500 !important;
-      font-size: 14px !important;
-  }
-
-  label {
-      color: #1a2e1a !important;
-      opacity: 1 !important;
-  }
+  html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; color: #1a2e1a; }
+  .stApp { background: #f7f6f2; }
+  
+    div[data-testid="stWidgetLabel"],
+    div[data-testid="stWidgetLabel"] * {
+        color: #1a2e1a !important;
+        opacity: 1 !important;
+        font-weight: 500 !important;
+        font-size: 14px !important;
+    }
+    
+    label {
+        color: #1a2e1a !important;
+        opacity: 1 !important;
+    }
 
   .stSelectbox div[data-baseweb="select"], 
   .stNumberInput input, 
@@ -53,34 +45,60 @@ st.markdown("""
       color: #1a2e1a !important;
       background-color: #ffffff !important;
   }
-
-  .stButton > button {
-      background: #2e7d32 !important;
-      color: #ffffff !important;
+  
+  .app-header {
+      display: flex; align-items: center; gap: 14px;
+      padding: 28px 0 20px; border-bottom: 1px solid #e0ddd5; margin-bottom: 28px;
+  }
+  .app-header-icon { font-size: 32px; line-height: 1; }
+  .app-header h1 {
+      font-family: 'Playfair Display', serif !important;
+      font-size: 26px !important; font-weight: 600 !important;
+      color: #1a2e1a !important; margin: 0 !important; padding: 0 !important;
+  }
+  .app-header p { font-size: 13px; color: #7a7a70; margin: 2px 0 0; }
+  
+  .model-badge {
+      margin-left: auto; font-size: 11px; font-family: 'DM Mono', monospace;
+      padding: 4px 12px; border-radius: 999px;
+      background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9;
+  }
+  
+  .card { background: #fff; border: 1px solid #e8e5de; border-radius: 14px; padding: 22px 24px; color: #1a2e1a; }
+  .card-title {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #9a9a8e; margin-bottom: 18px;
+  }
+  
+  .result-box { background: #fff; border: 1px solid #e8e5de; border-radius: 14px; padding: 24px; color: #1a2e1a; }
+  .result-label {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #9a9a8e; margin-bottom: 6px;
+  }
+  .result-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 52px; font-weight: 600; color: #2e7d32; line-height: 1;
+  }
+  .result-unit { font-family: 'DM Mono', monospace; font-size: 16px; color: #7a7a70; margin-left: 8px; }
+  
+  .metric-mini { flex: 1; background: #f7f6f2; border-radius: 10px; padding: 12px 14px; }
+  .metric-mini .mv { font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 500; color: #1a2e1a; }
+  
+  .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px; font-weight: 500; color: #1a2e1a;
+      margin: 32px 0 16px; border-bottom: 1px solid #e8e5de; padding-bottom: 10px;
   }
 
+  .stButton > button {
+      background: #2e7d32 !important; color: #fff !important;
+      border: none !important; border-radius: 10px !important;
+      padding: 12px 24px !important; font-size: 14px !important; font-weight: 500 !important; width: 100% !important;
+  }
+  
   #MainMenu, footer, header { visibility: hidden; }
 </style>
 """, unsafe_allow_html=True)
-
-pio.templates["force_white"] = dict(
-    layout=dict(
-        paper_bgcolor="#ffffff",
-        plot_bgcolor="#ffffff",
-        font=dict(color="#1a2e1a"),
-        xaxis=dict(
-            gridcolor="#e0ddd5",
-            linecolor="#1a2e1a",
-            tickfont=dict(color="#1a2e1a")
-        ),
-        yaxis=dict(
-            gridcolor="#e0ddd5",
-            linecolor="#1a2e1a",
-            tickfont=dict(color="#1a2e1a")
-        )
-    )
-)
-pio.templates.default = "force_white"
 
 G_DARK  = "#1b5e20"
 G_MID   = "#2e7d32"
@@ -89,16 +107,16 @@ G_PALE  = "#e8f5e9"
 AMBER   = "#f59e0b"
 CORAL   = "#ef4444"
 INDIGO  = "#6366f1"
-GRID    = "#e0ddd5"
+GRID    = "#f0ede5"
+FONT    = dict(family="DM Sans, sans-serif", color="#4a4a40")
 
 def base_layout(t=36, b=20, l=10, r=10, **kw):
     return dict(
-        template="force_white",
-        paper_bgcolor="#ffffff",
-        plot_bgcolor="#ffffff",
+        paper_bgcolor="#ffffff",  
+        plot_bgcolor="#ffffff",    
         font=dict(
             family="DM Sans, sans-serif",
-            color="#1a2e1a",
+            color="#1a2e1a",  
             size=13
         ),
         margin=dict(t=t, b=b, l=l, r=r),
