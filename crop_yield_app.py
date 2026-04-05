@@ -26,12 +26,18 @@ st.markdown("""
   html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; color: #1a2e1a; }
   .stApp { background: #f7f6f2; }
   
-  div[data-testid="stWidgetLabel"] p {
-      color: #1a2e1a !important;
-      font-weight: 500 !important;
-      font-size: 14px !important;
-      opacity: 1 !important;
-  }
+    div[data-testid="stWidgetLabel"],
+    div[data-testid="stWidgetLabel"] * {
+        color: #1a2e1a !important;
+        opacity: 1 !important;
+        font-weight: 500 !important;
+        font-size: 14px !important;
+    }
+    
+    label {
+        color: #1a2e1a !important;
+        opacity: 1 !important;
+    }
 
   .stSelectbox div[data-baseweb="select"], 
   .stNumberInput input, 
